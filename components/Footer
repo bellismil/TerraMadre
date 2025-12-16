@@ -1,0 +1,65 @@
+import React from 'react';
+import { Instagram, Facebook, Twitter, Mail } from 'lucide-react';
+
+export const Footer: React.FC = () => {
+  return (
+    <footer className="bg-earth-100 border-t border-earth-200 pt-16 pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+          
+          <div className="space-y-4">
+            <h3 className="font-serif text-xl text-earth-900 tracking-wide">Terra Mater</h3>
+            <p className="text-earth-600 text-sm leading-relaxed">
+              Modern apothecary bridging ancient wisdom with seed-to-bottle purity. Hand-blended in small batches.
+            </p>
+            <div className="flex space-x-4 pt-2">
+              <Instagram size={18} className="text-earth-600 hover:text-moss-600 cursor-pointer" />
+              <Facebook size={18} className="text-earth-600 hover:text-moss-600 cursor-pointer" />
+              <Twitter size={18} className="text-earth-600 hover:text-moss-600 cursor-pointer" />
+            </div>
+          </div>
+
+          <div>
+            <h4 className="font-sans uppercase text-xs font-bold text-earth-800 tracking-widest mb-6">Shop</h4>
+            <ul className="space-y-3 text-sm text-earth-600">
+              <li><a href="#" className="hover:text-moss-600">Medicinal Teas</a></li>
+              <li><a href="#" className="hover:text-moss-600">Herbal Elixirs</a></li>
+              <li><a href="#" className="hover:text-moss-600">Essential Oils</a></li>
+              <li><a href="#" className="hover:text-moss-600">Skincare</a></li>
+              <li><a href="#" className="hover:text-moss-600">Gift Bundles</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-sans uppercase text-xs font-bold text-earth-800 tracking-widest mb-6">Support</h4>
+            <ul className="space-y-3 text-sm text-earth-600">
+              <li><a href="#" className="hover:text-moss-600">Contact Us</a></li>
+              <li><a href="#" className="hover:text-moss-600">Shipping & Returns</a></li>
+              <li><a href="#" className="hover:text-moss-600">FAQ</a></li>
+              <li><a href="#" className="hover:text-moss-600">Wholesale</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-sans uppercase text-xs font-bold text-earth-800 tracking-widest mb-6">Newsletter</h4>
+            <p className="text-earth-600 text-sm mb-4">Join our community for herbal tips and exclusive offers.</p>
+            <div className="flex">
+              <input 
+                type="email" 
+                placeholder="Your email address" 
+                className="bg-white border border-earth-300 px-4 py-2 text-sm w-full focus:outline-none focus:border-moss-500"
+              />
+              <button className="bg-earth-800 text-white px-4 py-2 hover:bg-moss-700 transition-colors">
+                <Mail size={16} />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-16 pt-8 border-t border-earth-200 text-center text-xs text-earth-500">
+          <p>&copy; {new Date().getFullYear()} Terra Mater Apothecary. All rights reserved. Designed with Nature.</p>
+        </div>
+      </div>
+    </footer>
+  );
+};
