@@ -1,0 +1,82 @@
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { ShoppingBag, Menu, X, Search } from 'lucide-react';
+import { useShop } from '../context/ShopContext';
+
+export const Navbar: React.FC = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { toggleCart, cartCount } = useShop();
+  const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location]);
+
+  return (
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-earth-50/95 backdrop-blur-sm shadow-sm py-3' : 'bg-transparent py-6'}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center">
+          
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-earth-800 hover:text-moss-600">
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+
+          {/* Logo */}
+          <div className="flex-shrink-0 flex items-center justify-center md:justify-start w-full md:w-auto">
+            <Link to="/" className="font-serif text-2xl md:text-3xl tracking-wider text-earth-900 font-semibold">
+              TERRA MATER
+            </Link>
+          </div>
+
+          {/* Desktop Nav */}
+          <div className="hidden md:flex space-x-8 items-center">
+            <Link to="/" className="text-earth-700 hover:text-moss-600 transition-colors uppercase text-xs tracking-widest font-medium">Home</Link>
+            <Link to="/shop" className="text-earth-700 hover:text-moss-600 transition-colors uppercase text-xs tracking-widest font-medium">Shop</Link>
+            <Link to="/about" className="text-earth-700 hover:text-moss-600 transition-colors uppercase text-xs tracking-widest font-medium">Our Story</Link>
+            <Link to="/blog" className="text-earth-700 hover:text-moss-600 transition-colors uppercase text-xs tracking-widest font-medium">Wellness Hub</Link>
+          </div>
+
+          {/* Icons */}
+          <div className="flex items-center space-x-5">
+            <button className="text-earth-700 hover:text-moss-600 hidden sm:block">
+              <Search size={20} />
+            </button>
+            <button onClick={toggleCart} className="text-earth-700 hover:text-moss-600 relative">
+              <ShoppingBag size={20} />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-moss-600 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">
+                  {cartCount}
+                </span>
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden absolute top-full left-0 w-full bg-earth-50 shadow-lg border-t border-earth-200">
+          <div className="flex flex-col space-y-4 px-6 py-8">
+            <Link to="/" className="text-earth-800 text-lg font-serif">Home</Link>
+            <Link to="/shop" className="text-earth-800 text-lg font-serif">Shop All</Link>
+            <Link to="/about" className="text-earth-800 text-lg font-serif">Our Story</Link>
+            <Link to="/blog" className="text-earth-800 text-lg font-serif">Wellness Hub</Link>
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+};
